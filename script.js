@@ -43,14 +43,14 @@ grant_health = 10;
 
 while (grant_health > 0 && user_health > 0) {
 
-  var attack_or_quit = prompt("Grant's health is now " + grant_health + " and your health is now " + user_health + " Would you like to attack or quit?")
+  var attack_or_quit = prompt("Grant's health is now " + grant_health + " and your health is " + user_health + " Would you like to attack or quit?")
   attack_or_quit = attack_or_quit.toLowerCase();
   if (attack_or_quit === "quit") {
   alert("Good effort");
     return;
   }
   while (attack_or_quit !== "attack") {
-    attack_or_quit = prompt("Grant's health is now " + grant_health + " and your health is now " + user_health + " Would you like to attack or quit? Please enter attack or quit.");
+    attack_or_quit = prompt("Grant's health is now " + grant_health + " and your health is " + user_health + " Would you like to attack or quit? Please enter attack or quit.");
     attack_or_quit = attack_or_quit.toLowerCase();
   }
 
