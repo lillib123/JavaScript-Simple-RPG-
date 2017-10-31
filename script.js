@@ -49,7 +49,7 @@ function start_combat() {
   alert("YOU'RE GONNA FIGHT GRANT NOW");
   var number_of_wins = 0;
 
-  for (var i = 0; i<=2; i++){
+  for (var i = 0; i<=5; i++){
 
     while (grant.health > 0 && character.health > 0) {
 
