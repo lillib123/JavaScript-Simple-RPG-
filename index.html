@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>
+    A Cool Game
   </title>
 </head>
 <body>
+  <div id = "body_width">
+  <div id = "container">
+  <button id = "start" type = button value = start>Start Game</button>
+  <p id = "what_is_happening">Are you Ready?</p>
+  <div id = "attack_heal_quit">
+    <button id = "attack" type = "button" value = "attack" onclick = "start_combat(this.value)">Attack</button>
+    <button id = "heal" type = "button" value = "heal" onclick = "start_combat(this.value)">Heal</button>
+    <button id = "quit" type = "button" value = "quit" onclick = "start_combat(this.value)">Quit</button>
+</div>
+</div>
+</div>
   <script src="script.js"></script>
 </body>
 </html>

@@ -23,73 +23,71 @@ var grant = {
   }
 };
 
-start_game();
+var start = document.getElementById("start");
+start.onclick = function() {
+  start_game();
+}
 
 //---------------------------------------------------------------------
 function start_game() {
-  var yes_or_no = prompt("Would you like to play a game?");
-  if (yes_or_no === "no") {
-    alert("OK");
-    return;
-  }
-  while (yes_or_no.toLowerCase() !== "yes") {
-    yes_or_no = prompt("Would you like to play a game? SAY YES OR NO PLS");
-    yes_or_no = yes_or_no.toLowerCase();
-    if (yes_or_no === "no") {
-      alert("OK");
-      return;
-    }
-  }
+  start.style.visibility = "hidden";
   character.name = prompt("Please enter your name.");
-
+  what_is_happening.innerText = "Okay " + character.name + ", your game has started! Click Attack, Heal, or Quit.";
   start_combat();
 }
-//------------------------------------------------------------------------
-function start_combat() {
-  alert("YOU'RE GONNA FIGHT GRANT NOW");
-  var number_of_wins = 0;
-
-  for (var i = 0; i<=5; i++){
-
-    while (grant.health > 0 && character.health > 0) {
-
-      var attack_or_quit = prompt("Grant's health is "  + (grant.health) + " and " + (character.name) + "'s health is "  + (character.health) + ". Would you like to attack, quit, or heal?");
-      attack_or_quit = attack_or_quit.toLowerCase();
-      if (attack_or_quit === "quit") {
-        alert("Good effort");
-        return;
-      } else if (attack_or_quit === "heal" && character.heals_remaining > 0) {
-        character.health = (character.health + character.heal());
-        alert("You healed yourself! Your health is now " + (character.health) + ". And you have " + character.heals_remaining + " heals remaining.");
-
-      } else if (attack_or_quit === "heal" && character.heals_remaining === 0) {
-        alert("Oops, you used all of your heals!");
-      } else if (attack_or_quit === "attack"){
-
-        character.health = (character.health - character.generate_attack_damage());
-        console.log("You have " + character.health + " health left.");
-        grant.health = (grant.health - character.generate_attack_damage());
-        console.log("Grant has " + grant.health + " health left.");
+//-----------------------
+var what_is_happening = document.getElementById("what_is_happening");
+var attack_heal_quit = document.getElementById("attack_heal_quit");
+var number_of_wins = 0;
+heals_remaining = 2;
+//-----------------------
 
 
-      }
-      while (attack_or_quit !== "attack" && attack_or_quit !== "heal") {
-        attack_or_quit = prompt("Grant's health is " + (grant.health) + " and " + (character.name) + "'s health is " + (character.health) +  " Would you like to attack, quit, or heal? Please enter attack, quit, or heal.");
-        attack_or_quit = attack_or_quit.toLowerCase();
-        if (attack_or_quit === "quit") {
-          alert("Good effort");
-          return;
-        }
-      }
-    }
-    if (grant.health <= 0) {
-      number_of_wins++;
-      alert("YOU BEAT GRANT! Your remaining health: " + character.health + ". Gran't remaining health: 0. You have " + number_of_wins + " win(s).");
-      grant.health = 10;
-    }
-    else if (character.health <= 0) {
-      alert("Sorry, Grant defeated you, ya dang hoser! Your remaining health: 0. Grant's remaining health: " + grant.health + ".");
-      break;
-    }
+function start_combat(attack_heal_quit) {
+
+  if (grant.health <=0 && number_of_wins === 4) {
+    what_is_happening.innerText = "Yay! You won all three rounds!";
+    return;
+  }
+  else if (grant.health <= 0) {
+
+    number_of_wins++;
+    what_is_happening.innerText = "YOU BEAT GRANT ...this round. Your remaining health: " + character.health + ". Gran't remaining health: 0. You have " + number_of_wins + " win(s).";
+    grant.health = 10;
+  }
+
+  else if (character.health <= 0) {
+    attack.style.visibility = "hidden";
+    heal.style.visibility = "hidden";
+    quit.style.visibility = "hidden";
+    what_is_happening.innerText = "You have been defeated. Darn."
+    return;
+  }
+
+  if (attack_heal_quit === "attack") {
+    //attack
+    character.health = (character.health - character.generate_attack_damage());
+    console.log("You have " + character.health + " health left.");
+    grant.health = (grant.health - character.generate_attack_damage());
+    console.log("Grant has " + grant.health + " health left.");
+    what_is_happening.innerText = character.name + " has " + character.health + " health. Grant has " + grant.health + " health.";
+
+  } else if (attack_heal_quit === "heal") {
+    //heal
+    if (character.heals_remaining >0){
+      character.health = (character.health + character.heal());
+      heals_remaining = heals_remaining - 1;
+      what_is_happening.innerText = ("You healed yourself! Your health is now " + (character.health) + ". And you have " + character.heals_remaining + " heal remaining.");
+    } else
+    what_is_happening.innerText = ("Oops! You used all of your heals.");
+
+  } else if (attack_heal_quit === "quit") {
+    //quit
+    what_is_happening.innerText = ("Good effort");
+    attack.style.visibility = "hidden";
+    heal.style.visibility = "hidden";
+    quit.style.visibility = "hidden";
+    console.log("You quit the game.");
+    return;
   }
 }
