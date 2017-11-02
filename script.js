@@ -1,3 +1,4 @@
+
 var character = {
   name: name,
   health: 40,
@@ -46,14 +47,17 @@ heals_remaining = 2;
 function start_combat(attack_heal_quit) {
 
   if (grant.health <=0 && number_of_wins === 4) {
-    what_is_happening.innerText = "Yay! You won all three rounds!";
+    what_is_happening.innerText = "Yay! You won all five rounds!";
+    attack.style.visibility = "hidden";
+    heal.style.visibility = "hidden";
+    quit.style.visibility = "hidden";
     return;
   }
   else if (grant.health <= 0) {
-
     number_of_wins++;
-    what_is_happening.innerText = "YOU BEAT GRANT ...this round. Your remaining health: " + character.health + ". Gran't remaining health: 0. You have " + number_of_wins + " win(s).";
+    what_is_happening.innerText = ("YOU BEAT GRANT ...this round. Your remaining health: " + character.health + ". Grant's remaining health: 0. You have " + number_of_wins + " win(s).");
     grant.health = 10;
+    return;
   }
 
   else if (character.health <= 0) {
@@ -71,6 +75,7 @@ function start_combat(attack_heal_quit) {
     grant.health = (grant.health - character.generate_attack_damage());
     console.log("Grant has " + grant.health + " health left.");
     what_is_happening.innerText = character.name + " has " + character.health + " health. Grant has " + grant.health + " health.";
+
 
   } else if (attack_heal_quit === "heal") {
     //heal
